@@ -39,6 +39,9 @@
 
   /* nav height */
   --nav-height: 64px;
+
+  --primary: #035fe6;
+  --text-over-primary: #333;
 }
 
 @font-face {
