@@ -4,11 +4,11 @@ import { css } from 'solid-styled-components';
 import { ButtonLink } from '../../atoms/buttons.js';
 import { Picture } from '../../atoms/picture.js';
 import { Media, readImage, readLink, readPlainText, readRichtext, rem } from '../../scripts/utils.js';
-import { container, prose, text4XL } from '../../styles/styles.js';
+import { prose, text4XL } from '../../styles/styles.js';
 
 export const PromoBanner = ({ title, description, img, link }) => {
     return html` <div
-        class="${container} ${css({
+        class="${css({
             display: 'flex',
             alignItems: 'center',
             gap: rem(20),

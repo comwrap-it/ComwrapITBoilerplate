@@ -86,7 +86,7 @@ export const Tabs = ({ tabs }) => {
         e.currentTarget.querySelectorAll('button')[activeTab()].focus();
     };
 
-    return html`<div class="${container}">
+    return html`<div>
         <div
             class="${CSS_TAB_LIST}"
             role="tablist"

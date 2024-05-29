@@ -26,7 +26,7 @@ function getHeroCtaVariant(classList) {
 }
 
 export const HeroCta = ({ img, title, description, link, variant }) => {
-    return html` <div class="${container} ${css({ position: 'relative' })}">
+    return html` <div class="${css({ position: 'relative' })}">
             <${Picture}
                 img="${img}"
                 class="${css({ 
