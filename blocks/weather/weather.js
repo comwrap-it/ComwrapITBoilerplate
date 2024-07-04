@@ -6,18 +6,8 @@ import { weatherApi } from "../../scripts/api/weather.js";
  * @returns {string} a formatted date 'dd-mm-yyyy'
  */
 export function formatDate(date) {
-    let dateArr = date.split('-');
-    dateArr = dateArr.reverse();
-    return dateArr.join('/');
-}
-
-/**
- * Add 'https:' to icon path
- * @param {string} iconPath 
- * @returns {string} icon path with https protocol
- */
-export function addHttps(iconPath) {
-    return "https:" + iconPath;
+    if (!date) return '';
+    return date.split('-').reverse().join('/');
 }
 
 /**
@@ -28,13 +18,13 @@ export default async function decorate(block) {
     // read block config
     /**
      * @type {{
-    *   title: string;
-    *   city: string;
-    *   lang: string;
-    *   min?: string;
-    *   max?: string;
-    * }}
-    */
+     *   title: string;
+     *   city: string;
+     *   lang: string;
+     *   min?: string;
+     *   max?: string;
+     * }}
+     */
     const config = [...block.children]
         .map((row) => ([...row.children].map(col => col.innerText?.trim())))
         .reduce((acc, [k,v]) => ({ ...acc, [k]: v }), {});
@@ -48,26 +38,21 @@ export default async function decorate(block) {
     block.insertAdjacentHTML(
         'beforeend',
         `<div class="weather-container">
-            <div class="weather-title">
-                ${config.title || ''}
-            </div>
-            <div class="weather-city">
-                ${city}
-            </div>
+            <div class="weather-title">${config.title || ''}</div>
+            <div class="weather-city">${city}</div>
             <div class="weather-forecast-container">
                 ${Array.from(Array(numDays).keys()).map((index) => (`
                     <div class="weather-card">
                         <div class="weather-day">${formatDate(weatherData.forecast.forecastday[index].date)}</div>
                         <div class="weather-image">
-                            <img src='${addHttps(weatherData.forecast.forecastday[index].day.condition.icon)}' alt="${weatherData.forecast.forecastday[index].day.condition.text}">
+                            <img src='${`https:${weatherData.forecast.forecastday[index].day.condition.icon}`}' alt="${weatherData.forecast.forecastday[index].day.condition.text}">
                         </div>
                         <div>
                             <div>${config.min || 'Min.'} ${weatherData.forecast.forecastday[index].day.mintemp_c}°C</div>
                             <div>${config.max || 'Max.'} ${weatherData.forecast.forecastday[index].day.maxtemp_c}°C</div>
                         </div>
                         <div>${weatherData.forecast.forecastday[index].day.condition.text}</div>
-                    </div>`))
-                    .join('\n')}
+                    </div>`)).join('')}
             </div>
         </div>`
     );
