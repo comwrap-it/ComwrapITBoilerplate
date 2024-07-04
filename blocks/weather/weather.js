@@ -5,7 +5,7 @@ import { weatherApi } from "../../scripts/api/weather.js";
  * @param {string} date 'yyyy-mm-dd'
  * @returns {string} a formatted date 'dd-mm-yyyy'
  */
-export function formatDate(date) {
+function formatDate(date) {
     if (!date) return '';
     return date.split('-').reverse().join('/');
 }
